@@ -1,0 +1,18 @@
+# Python-generated files
+.env
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.fastapicloud/
+.ipynb_checkpoints/
+uv.lock
+pyproject.toml
+
+
+

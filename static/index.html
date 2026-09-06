@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AI-powered public-company research with live, sourced web data.">
+  <title>Financial Research Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js" defer></script>
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <main class="app-shell">
+    <section class="intro">
+      <div>
+        <h1>Research a company</h1>
+        <p>Build a focused report from live filings, earnings, and trusted web sources.</p>
+      </div>
+    </section>
+
+    <section class="research-workspace" aria-label="Research workspace">
+      <form id="research-form" class="research-card">
+        <div class="card-heading">
+          <div>
+            <div><p class="section-kicker">Research brief</p><h2>Tell the agent what to investigate</h2></div>
+          </div>
+          <button id="reset-form" class="text-button" type="button">Reset</button>
+        </div>
+
+        <div class="field company-field">
+          <label for="company">Company name or ticker</label>
+          <div class="input-shell">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.4-4.4m2.4-5.1a7.5 7.5 0 1 1-15 0 7.5 7.5 0 0 1 15 0Z"/></svg>
+            <input id="company" name="company" required maxlength="200" autocomplete="organization" autofocus placeholder="Try NVIDIA, Apple, or MSFT">
+            <span id="company-ready" class="input-check" aria-hidden="true">✓</span>
+          </div>
+          <div class="quick-picks" aria-label="Example companies">
+            <span>Quick start</span>
+            <button type="button" data-company="NVIDIA">NVIDIA</button>
+            <button type="button" data-company="Microsoft">Microsoft</button>
+            <button type="button" data-company="Tesla">Tesla</button>
+          </div>
+        </div>
+
+        <div class="form-grid">
+          <div class="field">
+            <label for="period">Research period</label>
+            <div class="select-shell">
+              <select id="period" name="period">
+                <option>1 month</option>
+                <option>3 months</option>
+                <option selected>6 months</option>
+                <option>1 year</option>
+                <option>2 years</option>
+              </select>
+            </div>
+          </div>
+          <div class="field focus-field">
+            <div class="label-row"><label for="focus">Research focus</label><span id="focus-count">21 / 1000</span></div>
+            <textarea id="focus" name="focus" maxlength="1000" rows="4" placeholder="What should the agent focus on?">Full company research</textarea>
+          </div>
+        </div>
+
+        <div class="form-footer">
+          <p><span aria-hidden="true">✦</span> Searches public sources and includes source URLs</p>
+          <button id="submit" class="primary-button" type="submit">
+            <span class="button-icon" aria-hidden="true">✦</span>
+            <span class="button-label">Generate research report</span>
+            <span class="button-arrow" aria-hidden="true">→</span>
+          </button>
+        </div>
+      </form>
+
+    </section>
+
+    <section id="result-panel" class="result-panel" hidden aria-live="polite">
+      <div class="result-header">
+        <div><p class="section-kicker">Research complete</p><h2 id="result-title">Analysis</h2></div>
+        <div class="result-actions">
+          <button id="new-research" class="secondary-button" type="button">New research</button>
+          <button id="copy-report" class="secondary-button accent" type="button">Copy report</button>
+        </div>
+      </div>
+      <div id="loading-state" class="loading-state" hidden>
+        <div class="loader" aria-hidden="true"></div>
+        <div><strong>Building your report</strong><p id="loading-message">Searching trusted sources…</p></div>
+      </div>
+      <article id="result" class="markdown-body"></article>
+    </section>
+  </main>
+
+</body>
+</html>
